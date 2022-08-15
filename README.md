@@ -113,3 +113,81 @@ doSomething();
 <p align="center">
   <img src="./assets/images/promise-all-1.png" alt="promise.all">
 </p>
+
+## Tip 3: await inside for...of and foreach loop
+
+instead of this,
+
+```js
+function getUsersTitle() {
+    return axios.get('https://jsonplaceholder.typicode.com/users')
+        .then(res => res.data.map(({ name }) => name));
+}
+
+function makeUppercase(val) {
+    return Promise.resolve(val.toUpperCase());
+}
+
+async function doSomething() {
+    const names = await getUsersTitle();
+
+    names.forEach(async name => {
+        const uppercasename = await makeUppercase(name)
+        console.log(uppercasename);
+    });
+
+    console.log("Finished");
+}
+
+doSomething();
+// Finished
+// LEANNE GRAHAM
+// ERVIN HOWELL
+// CLEMENTINE BAUCH
+// PATRICIA LEBSACK
+// CHELSEY DIETRICH
+// MRS. DENNIS SCHULIST
+// KURTIS WEISSNAT
+// NICHOLAS RUNOLFSDOTTIR V
+// GLENNA REICHERT
+// CLEMENTINA DUBUQUE
+```
+
+forEach loop can't process data in sequence.
+
+use for..of to get data in sequence,
+
+```js
+function getUsersTitle() {
+    return axios.get('https://jsonplaceholder.typicode.com/users')
+        .then(res => res.data.map(({ name }) => name));
+}
+
+function makeUppercase(val) {
+    return Promise.resolve(val.toUpperCase());
+}
+
+async function doSomething() {
+    const names = await getUsersTitle();
+
+    for(let name of names) {
+        const uppercasename = await makeUppercase(name)
+        console.log(uppercasename)
+    }
+
+    console.log("Finished");
+}
+
+doSomething();
+// LEANNE GRAHAM
+// ERVIN HOWELL
+// CLEMENTINE BAUCH
+// PATRICIA LEBSACK
+// CHELSEY DIETRICH
+// MRS. DENNIS SCHULIST
+// KURTIS WEISSNAT
+// NICHOLAS RUNOLFSDOTTIR V
+// GLENNA REICHERT
+// CLEMENTINA DUBUQUE
+// Finished
+```
