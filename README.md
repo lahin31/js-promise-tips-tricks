@@ -68,7 +68,7 @@ async function doSomething() {
         const usersLength = await getUsersLength();
         const photosLength = await getPhotosLength();
     
-        console.log({ usersLength, photosLength });
+        console.log(usersLength, photosLength); // 2, 2
     } catch(err) {
         throw new Error(err);
     }
@@ -76,6 +76,7 @@ async function doSomething() {
 
 doSomething();
 ```
+after 11 seconds you can see the result [2, 2].
 
 use like this,
 
@@ -107,7 +108,7 @@ async function doSomething() {
 
 doSomething();
 ```
-`getUsersLength()` took 5 seconds to resolve and `getPhotosLength()` took 6 seconds to resolve. `promise.all()` will executes those functions parallelly.
+`getUsersLength()` took 5 seconds to resolve and `getPhotosLength()` took 6 seconds to resolve. `promise.all()` will executes those functions parallelly, so after 6 seconds you can see the result.
 
 <p align="center">
   <img src="./assets/images/promise-all-1.png" alt="promise.all">
