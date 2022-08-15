@@ -246,3 +246,20 @@ getUsers()
 ```
 
 Now you can see it prints Photos array first then it prints `JS Promise` last.
+
+## Tip 5: Cancelling a promise
+
+```jsx
+useEffect(() => {
+    const controller = new AbortController();
+
+    axios.get('/{{api_endpoint}}', {
+        signal: controller.signal
+    })
+        .then(res => {
+            console.log(res);
+        });
+
+    return () => controller.abort();
+}, []);
+```
