@@ -100,7 +100,7 @@ function getPhotosLength() {
 async function doSomething() {
     try {
         const [usersLength, photosLength] = await Promise.all([getUsersLength(), getPhotosLength()]);
-        console.log(usersLength, photosLength); // [5, 5]
+        console.log(usersLength, photosLength); // 2, 2
     } catch(err) {
         throw new Error(err);
     }
