@@ -1,6 +1,6 @@
 # JavaScript Promises Tips & Tricks
 
-## Tip #1: Promise Chaining
+## Tip 1: Promise Chaining
 
 instead of this, 
 
@@ -76,7 +76,7 @@ async function doSomething() {
 
 doSomething();
 ```
-after 11 seconds you can see the result [2, 2].
+after 11 seconds you can see the result 2, 2.
 
 use like this,
 
