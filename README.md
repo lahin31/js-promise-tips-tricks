@@ -191,3 +191,59 @@ doSomething();
 // CLEMENTINA DUBUQUE
 // Finished
 ```
+
+## Tip 4: Always better to return promise
+
+instead of this,
+
+```js
+function getUsers() {
+    return axios.get('https://jsonplaceholder.typicode.com/users');
+}
+
+function getPhotos() {
+    return axios.get('https://jsonplaceholder.typicode.com/photos'); // 5000 photos
+}
+
+getUsers()
+    .then(res => {
+        getPhotos()
+            .then(photos => {
+                console.log(photos.data)
+            })
+    })
+    .then(() => {
+        console.log("JS Promise");
+    })
+    .catch(err => {
+        console.error(err);
+    })
+```
+
+You can see it prints `JS Promise` first then prints Photos array, this can be problematic. Use like this,
+
+```js
+function getUsers() {
+    return axios.get('https://jsonplaceholder.typicode.com/users');
+}
+
+function getPhotos() {
+    return axios.get('https://jsonplaceholder.typicode.com/photos'); // 5000 photos
+}
+
+getUsers()
+    .then(res => {
+        return getPhotos();
+    })
+    .then(photos => {
+        console.log(photos.data);
+    })
+    .then(() => {
+        console.log("JS Promise");
+    })
+    .catch(err => {
+        console.error(err);
+    })
+```
+
+Now you can see it prints Photos array first then it prints `JS Promise` last.
