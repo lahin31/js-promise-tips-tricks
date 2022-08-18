@@ -247,7 +247,7 @@ getUsers()
 
 Now you can see it prints Photos array first then it prints `JS Promise` last.
 
-## Tip 5: Cancelling a promise
+## Tip 5: Cancelling a promise (react)
 
 ```jsx
 useEffect(() => {
@@ -262,4 +262,31 @@ useEffect(() => {
 
     return () => controller.abort();
 }, []);
+```
+
+## Tip 6: Debounce an API call with promise (react)
+
+```jsx
+const [name, setName] = useState('');
+const [suggestions, setSuggestions] = useState([]);
+
+const handleNameChange = e => {
+    fetch(`${api}/search?q={e.target.value}`)
+        .then(res => res.json())
+        .then(res => setSuggestions(res.data.items));
+}
+
+const debounce = func => {
+    let timer;
+    return function(...args) {
+        const context = this;
+        if(timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+            timer = null;
+            func.apply(context, args);
+        }, 500)
+    }
+}
+
+const optimizedFunc = useCallback(debounce(handleNameChange));
 ```
